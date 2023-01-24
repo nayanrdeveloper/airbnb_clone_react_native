@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import HomeScreen from "./screens/HomeScreen";
 import SettingsScreen from "./screens/SettingsScreen";
@@ -24,77 +25,33 @@ import {
 } from "react-native-heroicons/outline";
 import store from "./store";
 import { Provider } from "react-redux";
+import SearchExplore from "./components/SearchExplore";
+import SearchScreen from "./screens/SearchScreen";
+import FilterScreen from "./screens/FilterScreen";
+import Inbox from "./components/Inbox";
+import Notification from "./components/Notification";
+import PlaceDetailScreen from "./screens/PlaceDetailScreen";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const RootStack = createStackNavigator();
 
 export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              let colorName = "gray";
-              let opacity = 0.9;
-              let iconSize = 25;
-
-              if (route.name === "Home") {
-                return (
-                  <HomeIcon
-                    color={colorName}
-                    size={iconSize}
-                    opacity={opacity}
-                  />
-                );
-                // iconName = focused
-                //   ? "ios-information-circle"
-                //   : "ios-information-circle-outline";
-              } else if (route.name === "Wishlists") {
-                return (
-                  <HeartIcon
-                    color={colorName}
-                    size={iconSize}
-                    opacity={opacity}
-                  />
-                );
-              } else if (route.name === "Trips") {
-                return (
-                  <BuildingStorefrontIcon
-                    color={colorName}
-                    size={iconSize}
-                    opacity={opacity}
-                  />
-                );
-              } else if (route.name === "Inbox") {
-                return (
-                  <ChatBubbleBottomCenterIcon
-                    color={colorName}
-                    size={iconSize}
-                    opacity={opacity}
-                  />
-                );
-              } else if (route.name === "Log In") {
-                return (
-                  <UserIcon
-                    color={colorName}
-                    size={iconSize}
-                    opacity={opacity}
-                  />
-                );
-              }
-            },
-            tabBarActiveTintColor: "#F24B5B",
-            tabBarInactiveTintColor: "gray",
-            headerShown: false,
-          })}
-        >
-          <Tab.Screen name="Home" component={HomeScreen} />
-          <Tab.Screen name="Wishlists" component={WishLists} />
-          <Tab.Screen name="Trips" component={TripScreen} />
-          <Tab.Screen name="Inbox" component={InboxScreen} />
-          <Tab.Screen name="Log In" component={LogInScreen} />
-        </Tab.Navigator>
+        <RootStack.Navigator screenOptions={{headerShown: false}}>
+          <RootStack.Group>
+            <RootStack.Screen name="Home" component={HomeScreen} />
+            <RootStack.Screen name="PlaceDetail" component={PlaceDetailScreen} />
+            {/* <RootStack.Screen name="Message" component={Inbox} />
+            <RootStack.Screen name="Notification" component={Notification} /> */}
+          </RootStack.Group>
+          <RootStack.Group screenOptions={{ presentation: 'modal' }}>
+            <RootStack.Screen name="Search" component={SearchScreen} />
+            <RootStack.Screen name="Filter" component={FilterScreen} />
+          </RootStack.Group>
+        </RootStack.Navigator>
       </NavigationContainer>
     </Provider>
   );

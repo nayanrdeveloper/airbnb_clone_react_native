@@ -1,4 +1,4 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import {
   StarIcon,
@@ -6,6 +6,7 @@ import {
   HeartIcon,
   XCircleIcon
 } from "react-native-heroicons/outline";
+import {HeartIcon as HeartSolidIcon} from "react-native-heroicons/solid"
 import {XMarkIcon} from "react-native-heroicons/solid"
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,6 +14,7 @@ import {
   removeWishlistPlace,
   selectedWishlistPlaces,
 } from "../features/wishlist";
+import { useNavigation } from "@react-navigation/native";
 export default function PlaceCard({
   desc,
   img,
@@ -24,6 +26,7 @@ export default function PlaceCard({
   long,
   lat,
 }) {
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const items = useSelector(selectedWishlistPlaces);
 
@@ -33,7 +36,7 @@ export default function PlaceCard({
     return wishlistPlace;
   };
   return (
-    <View className="py-2 relative">
+    <TouchableOpacity className="py-2 relative" onPress={() => navigation.navigate('PlaceDetail')}>
       <Image
         source={{
           uri: img,
@@ -42,15 +45,15 @@ export default function PlaceCard({
       />
       <View className="absolute top-5 right-4 cursor-pointer">
         {
-          isWishList(title) ? <XCircleIcon
+          isWishList(title) ? <HeartSolidIcon
           size={25}
-          color={'white'}
+          color={'gray'}
           onPress={() =>
             dispatch(removeWishlistPlace({ title }))
           }
         /> : <HeartIcon
         size={25}
-        color={'white'}
+        color={'gray'}
         onPress={() =>
           dispatch(addWishlistPlace({ img, title, star, price }))
         }
@@ -76,6 +79,6 @@ export default function PlaceCard({
       <Text>
         <Text className="text-gray-800 font-medium">{price}</Text>
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 }
