@@ -1,9 +1,9 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 
 export default function InboxCard({ image, name, desc, time,status }) {
   return (
-    <View className="py-2 px-2 border-b flex-row space-x-2 border-gray-400 items-center">
+    <TouchableOpacity className="py-2 px-2 border-b flex-row space-x-2 border-gray-400 items-center">
       <View>
         <Image source={{ uri: image }} className="w-16 h-16 rounded-full" />
       </View>
@@ -15,6 +15,6 @@ export default function InboxCard({ image, name, desc, time,status }) {
         <Text className="text-gray-600">{desc}</Text>
         <Text className={status === 'Accepted' ? 'text-green-600' : 'text-red-600'}>{status}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }

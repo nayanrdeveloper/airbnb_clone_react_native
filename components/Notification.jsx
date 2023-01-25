@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 function Notification() {
   const notificationList = [
@@ -50,7 +50,7 @@ function Notification() {
       <View className="space-y-2">
         {notificationList.map((notificationItem) => {
           return (
-            <View key={notificationItem.id} className="flex-row px-2 py-2 space-x-2 border-b border-gray-400 mx-2">
+            <TouchableOpacity key={notificationItem.id} className="flex-row px-2 py-2 space-x-2 border-b border-gray-400 mx-2">
               <View>
                 <Image
                   source={{ uri: notificationItem.image }}
@@ -61,7 +61,7 @@ function Notification() {
                 <Text className="text-md">{notificationItem.notification}</Text>
                 <Text className="text-gray-700">{notificationItem.timeDuration}</Text>
               </View>
-            </View>
+            </TouchableOpacity>
           );
         })}
       </View>
