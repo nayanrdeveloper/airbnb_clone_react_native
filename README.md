@@ -1,8 +1,10 @@
 # Airbnb Clone (Mobile Android App)
 
-## Demo
+## Demo 
 
-[![Demo Airbnb Clone](screenshots/home_1.jpg)](https://youtu.be/yJIwHxcDqew)
+Click on following banner
+
+[![Demo Airbnb Clone](screenshots/youtube_thumbailnail.png)](https://youtu.be/yJIwHxcDqew)
 
 ## Technology
 
